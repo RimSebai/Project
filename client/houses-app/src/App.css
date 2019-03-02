@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+textarea {
+  width: 290px;
+  height: 200px;
+}

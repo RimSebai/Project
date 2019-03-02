@@ -9,6 +9,15 @@ export default class AppService {
       this.checkStatusCode(response)
     );
   }
+  static addHouse(data) {
+    return fetch('http://localhost:3001/api/contribution', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: data
+    }).then(response => this.checkStatusCode(response));
+  }
 
   static checkStatusCode(response) {
     if (response.status < 400) {

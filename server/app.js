@@ -8,10 +8,10 @@ const api = require('./api');
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/api', api);
-app.use(express.static(path.join(__dirname, '..', 'client', 'houses-app', 'build')));
-app.use('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '..', 'client', 'build', 'houses-app', 'index.html'))
-);
+app.use('/api', api.apiRouter);
+// app.use(express.static(path.join(__dirname, '..', 'client', 'houses-app')));
+app.use('*', (req, res) => res.send('hello world'));
+// res.sendFile(path.join(__dirname, '..', 'client', 'houses-app', 'index.html'))
+// );
 
 module.exports = app;

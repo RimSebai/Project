@@ -1,0 +1,62 @@
+const mysql = require('mysql');
+const util = require('util');
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'holland2016',
+  database: 'new_project',
+});
+
+// const execQuery = util.promisify(connection.query.bind(connection));
+
+async function createData() {
+  let sql = 'CREATE DATABASE IF NOT EXISTS new_project';
+  let use_sql = 'USE new_project';
+  let houses =
+    'CREATE TABLE IF NOT EXISTS Houses(Id varchar(100) NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT, Link varchar(MAX) NOT NULL UNIQE, Market_date date() NOT NULL, Location_country varchar (20) NOT NULL, Location_city varcher (20 ) NOT NULL';
+  connection.connect();
+  try {
+    await execQuery(sql);
+    await execQuery(use_sql);
+    await execQuery(houses);
+  } catch (error) {
+    throw error;
+  }
+  // connection.end();
+}
+
+createData();
+
+// connection.connect();
+
+// connection.end();
+// let users =
+//     'CREATE TABLE IF NOT EXISTS Houses(Id varchar(100) NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT, Link varchar(MAX) NOT NULL UNIQE, Market_date date() NOT NULL, Location_country varchar (20) NOT NULL, Location_city varcher (20 ) NOT NULL, Location_address varcher(30) NULL,Location_coordinates_lat float() NOT NULL,Location_coordinates_lng float() NOT NULL, Size_living_area int NUT NULL, Size_rooms int NUT NULL, Price_value float() NUT NULL, Price_currency varchar(3) NUT NULL,Description text NULL , Tittle text NULL , Images , Sold NUM(0,1) NULL';
+[{
+  "Link":"https://github.com",
+    "Location_country":"Neth",
+    "Price":234
+    }]
+[{
+  "link":"https://github.com",
+   "market_date": "kjhg",
+    "location_country":"Syria",
+    "location_city":"Homs",
+    "location_address ":"kazernestraat",
+    "location_coordinates_lat":9,
+    "location_coordinates_lng":8,
+    "size_living_area":54,
+   "size_rooms":6,
+    "price_value":-67098,
+    "price_currency":"euro",
+    "description":"hhhhhhhhhhhhhh",
+    "title ":"hgfdfghjkl",
+    "sold" :1
+}]
+
+
+        // let validReport =
+    //   num === 1
+    //     ? `you inserted ${num} house successfully`
+    //     : `you inserted ${num} houses successfully`;
+    // console.log(report, numberOfValidHouses);

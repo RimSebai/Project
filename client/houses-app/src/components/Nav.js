@@ -10,8 +10,9 @@ class Nav extends React.Component {
         </p>{' '}
         <p>
           {' '}
-          <NavLink to="/home">Home</NavLink>
+          <NavLink to="/api/home">Home</NavLink>
         </p>
+        <NavLink to="/api/contribution">Contribution</NavLink>
       </div>
     );
   }

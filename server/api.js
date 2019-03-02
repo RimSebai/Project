@@ -1,24 +1,66 @@
 const express = require('express');
-const app = express();
-const api = express.Router();
+const apiRouter = express.Router();
+const connection = require('./db');
+const validation = require('./validation');
 
-let houses = [{ id: 1, price: 10000 }, { id: 2, price: 23999 }, { id: 3, price: 450000 }];
-let lastId = Math.max.apply(Math, houses.map(lastId => lastId.id));
+let houses = [];
 
-api
-  .route('/houses')
-  .get((req, res) => res.json(houses))
-  .post((req, res) => {
-    const id = lastId + 1;
-    const { price } = req.body;
-    let newHouse = { id, price };
-    price
-      ? Number.isNaN(price) || price <= 0
-        ? res.status(404).end('the price should be valid number')
-        : houses.push(newHouse) && res.json(newHouse)
-      : res.status(404).end('the price is required');
-  });
-api
+apiRouter.route('/houses').get((req, res) => res.json(houses));
+apiRouter.route('/contribution').post((req, res) => {
+  let sql = `replace into houses (link,
+    market_date,  
+    location_country,
+    location_city,
+    location_address ,
+    location_coordinates_lat ,
+    location_coordinates_lng ,
+    size_living_area ,
+    size_rooms, 
+    price_value ,
+    price_currency, 
+    description,
+    title,
+    images,
+    sold
+    )values(?)`;
+
+  if (!Array.isArray(req.body)) {
+    res.status(400).json({ error: 'Data should be an array' });
+  } else {
+    let valid = validation.validator(req.body);
+
+    //____creating report _____
+    let createReport = report => {
+      let invalidArray = [];
+      report.forEach((el, i) => {
+        input = {};
+        input.insertedHouse = req.body[i];
+        input.messages = el;
+        el.length > 0 && invalidArray.push(input);
+      });
+      return invalidArray;
+    };
+    report = createReport(valid.invalidDataMessages);
+    let numberOfValidHouses = 0;
+    valid.validData.forEach(el => {
+      el.length === 14 && numberOfValidHouses++;
+    });
+    //_____End Creating Report_____
+
+    res.json({ report, numberOfValidHouses });
+
+    //____Inserting houses and adding date______
+    valid.validData.forEach(house => {
+      house.length === 14 &&
+        (house.splice(1, 0, Date.now()),
+        connection.query(sql, [house], function(err, result, field) {
+          if (err) throw err;
+        }));
+    });
+    //____End Inserting houses and adding date______
+  }
+});
+apiRouter
   .route('/houses/:id')
   .get((req, res) => {
     const { id } = req.params;
@@ -35,4 +77,4 @@ api
       : res.send('No house has id to deleted');
   });
 
-module.exports = api;
+module.exports = { apiRouter };

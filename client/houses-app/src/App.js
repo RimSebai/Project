@@ -6,24 +6,26 @@ import HousesList from './components/HousesList';
 import HouseDetails from './components/HouseDetails';
 import Error from './components/Error';
 import Nav from './components/Nav';
+import AddHousesForm from './components/AddHousesForm';
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <BrowserRouter>
-          <>
-            <Nav />
+      <BrowserRouter>
+        <div>
+          <Nav />
+          <div>
             <Switch>
               <Route exact path="/" />
-              <Route exact path="/home" component={Home} />
+              <Route exact path="/api/home" component={Home} />
               <Route exact path="/api/houses" component={HousesList} />
               <Route exact path="/api/houses/:house_id" component={HouseDetails} />
+              <Route exact path="/api/contribution" component={AddHousesForm} />
               <Route component={Error} />
             </Switch>
-          </>
-        </BrowserRouter>
-      </div>
+          </div>
+        </div>
+      </BrowserRouter>
     );
   }
 }
