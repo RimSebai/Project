@@ -97,7 +97,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       } else {
         let URLs = house.images.split(',');
         let imagesErrors = '';
-        URLs.map(URL => !validURL(URL) && (imagesErrors += ` this  ${URL}is not valid URL`));
+        URLs.map(URL => !validURL(URL) && (imagesErrors += `this ${URL}is not valid URL`));
         imagesErrors ? invalidHouse.push(imagesErrors) : validHouse.push(house.images);
       }
       if (!house.sold) {

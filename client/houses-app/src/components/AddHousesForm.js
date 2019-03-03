@@ -9,9 +9,8 @@ class AddHousesForm extends React.Component {
       JSON.parse(this.dataInput.value);
       service
         .addHouse(this.dataInput.value)
-        .then(res => res.JSON())
         .then(res => this.setState({ report: res }))
-        .catch(error => {});
+        .catch(error => this.setState({ error: error }));
     } catch (e) {
       this.setState({ error: 'The data should be in JSON format' });
     }
@@ -30,7 +29,7 @@ class AddHousesForm extends React.Component {
           <p>{`you inserted ${this.state.report.numberOfValidHouses} house`}</p>
         )}
         {this.state.report &&
-          this.state.report.report.map((el, i) => {
+          this.state.report.finalReport.map((el, i) => {
             return (
               <div key={i}>
                 <textarea value={JSON.stringify(el.insertedHouse, undefined, 4)} readOnly />
@@ -38,7 +37,8 @@ class AddHousesForm extends React.Component {
                 <span>{el.messages}</span>
               </div>
             );
-          })}
+          })}{' '}
+        }
       </div>
     );
   }

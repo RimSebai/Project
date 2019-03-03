@@ -2,6 +2,7 @@ const express = require('express');
 const apiRouter = express.Router();
 const connection = require('./db');
 const validation = require('./validation');
+const report = require('./report');
 
 let houses = [];
 
@@ -11,12 +12,12 @@ apiRouter.route('/contribution').post((req, res) => {
     market_date,  
     location_country,
     location_city,
-    location_address ,
-    location_coordinates_lat ,
-    location_coordinates_lng ,
-    size_living_area ,
+    location_address,
+    location_coordinates_lat,
+    location_coordinates_lng,
+    size_living_area,
     size_rooms, 
-    price_value ,
+    price_value,
     price_currency, 
     description,
     title,
@@ -28,26 +29,9 @@ apiRouter.route('/contribution').post((req, res) => {
     res.status(400).json({ error: 'Data should be an array' });
   } else {
     let valid = validation.validator(req.body);
-
-    //____creating report _____
-    let createReport = report => {
-      let invalidArray = [];
-      report.forEach((el, i) => {
-        input = {};
-        input.insertedHouse = req.body[i];
-        input.messages = el;
-        el.length > 0 && invalidArray.push(input);
-      });
-      return invalidArray;
-    };
-    report = createReport(valid.invalidDataMessages);
-    let numberOfValidHouses = 0;
-    valid.validData.forEach(el => {
-      el.length === 14 && numberOfValidHouses++;
-    });
-    //_____End Creating Report_____
-
-    res.json({ report, numberOfValidHouses });
+    let finalReport = report.createReport(valid.invalidDataMessages, req.body);
+    let numberOfValidHouses = report.creatNumberOfValidHouses(valid.validData);
+    res.json({ finalReport, numberOfValidHouses });
 
     //____Inserting houses and adding date______
     valid.validData.forEach(house => {
