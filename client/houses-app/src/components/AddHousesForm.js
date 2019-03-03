@@ -37,7 +37,7 @@ class AddHousesForm extends React.Component {
                 <span>{el.messages}</span>
               </div>
             );
-          })}{' '}
+          })
         }
       </div>
     );
