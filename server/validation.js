@@ -2,8 +2,8 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
   houses.map(house => {
     let validHouse = [];
     let invalidHouse = [];
-    if (Object.keys(house).length === 0 && house.constructor === Object) {
-      invalidDataMessages.push([`you inserted an empty OBJECT`]);
+    if (Object.keys(house).length === 0 && !house.constructor === Object) {
+      invalidDataMessages.push([`you inserted has to be Object and not empty`]);
     } else {
       if (!house.link) {
         invalidHouse.push('Link is required field');
