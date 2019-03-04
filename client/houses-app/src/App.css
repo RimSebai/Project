@@ -5,3 +5,10 @@ textarea {
   width: 290px;
   height: 200px;
 }
+.filter-form {
+  display: flex;
+  flex-flow: column;
+}
+select {
+  width: 20%;
+}

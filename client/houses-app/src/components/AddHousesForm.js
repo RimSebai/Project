@@ -10,7 +10,7 @@ class AddHousesForm extends React.Component {
       service
         .addHouse(this.dataInput.value)
         .then(res => this.setState({ report: res }))
-        .catch(error => this.setState({ error: error }));
+        .catch(error => this.setState({ error: 'Data should be an array' }));
     } catch (e) {
       this.setState({ error: 'The data should be in JSON format' });
     }
@@ -37,8 +37,7 @@ class AddHousesForm extends React.Component {
                 <span>{el.messages}</span>
               </div>
             );
-          })}{' '}
-        }
+          })}
       </div>
     );
   }
