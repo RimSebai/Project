@@ -4,9 +4,16 @@ const connection = require('./db');
 const validation = require('./validation');
 const report = require('./report');
 
-let houses = [];
-
-apiRouter.route('/houses').get((req, res) => res.json(houses));
+apiRouter.route('/houses').get((req, res) => {
+  let sql = 'select * from houses';
+  connection.query(sql, function(error, result) {
+    if (error) {
+      throw error;
+    } else {
+      res.json(result);
+    }
+  });
+});
 apiRouter.route('/contribution').post((req, res) => {
   let sql = `replace into houses (link,
     market_date,  
@@ -26,7 +33,7 @@ apiRouter.route('/contribution').post((req, res) => {
     )values(?)`;
 
   if (!Array.isArray(req.body)) {
-    res.status(400).json({ error: 'Data should be an array' });
+    res.status(400).send;
   } else {
     let valid = validation.validator(req.body);
     let finalReport = report.createReport(valid.invalidDataMessages, req.body);
@@ -34,6 +41,7 @@ apiRouter.route('/contribution').post((req, res) => {
     res.json({ finalReport, numberOfValidHouses });
 
     //____Inserting houses and adding date______
+
     valid.validData.forEach(house => {
       house.length === 14 &&
         (house.splice(1, 0, Date.now()),
@@ -47,18 +55,18 @@ apiRouter.route('/contribution').post((req, res) => {
 apiRouter
   .route('/houses/:id')
   .get((req, res) => {
-    const { id } = req.params;
-    const house = houses.find(house => house.id === parseInt(id, 10));
-    house ? res.send(house) : res.status(404).send(`No house has id ${id}`);
+    // const { id } = req.params;
+    // const house = houses.find(house => house.id === parseInt(id, 10));
+    // house ? res.send(house) : res.status(404).send(`No house has id ${id}`);
   })
   .delete((req, res) => {
-    let housesBeforeDelete = houses.length;
-    const { id } = req.params;
-    houses = houses.filter(house => house.id !== Number(id));
-    let housesAfterDelete = houses.length;
-    housesBeforeDelete > housesAfterDelete
-      ? res.send('house was deleted')
-      : res.send('No house has id to deleted');
+    // let housesBeforeDelete = houses.length;
+    // const { id } = req.params;
+    // houses = houses.filter(house => house.id !== Number(id));
+    // let housesAfterDelete = houses.length;
+    // housesBeforeDelete > housesAfterDelete
+    //   ? res.send('house was deleted')
+    //   : res.send('No house has id to deleted');
   });
 
 module.exports = { apiRouter };

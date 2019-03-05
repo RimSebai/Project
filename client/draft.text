@@ -38,19 +38,20 @@ createData();
     "Price":234
     }]
 [{
-  "link":"https://github.com",
+  "link":"https://www.oba.com",
    "market_date": "kjhg",
-    "location_country":"Syria",
-    "location_city":"Homs",
+    "location_country":"Austria",
+    "location_city":"Vienna",
     "location_address ":"kazernestraat",
     "location_coordinates_lat":9,
     "location_coordinates_lng":8,
     "size_living_area":54,
    "size_rooms":6,
-    "price_value":-67098,
+    "price_value":27686,
     "price_currency":"euro",
     "description":"hhhhhhhhhhhhhh",
     "title ":"hgfdfghjkl",
+    "images":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Wien_Rathaus_hochaufl%C3%B6send.jpg/1200px-Wien_Rathaus_hochaufl%C3%B6send.jpg",
     "sold" :1
 }]
 
