@@ -7,13 +7,12 @@ import Filter from './Filter';
 class HousesList extends React.Component {
   state = {
     houses: [],
-    loading: true
+    loading: true,
   };
   componentDidMount() {
     service.getHouses().then(res => this.setState({ houses: res, loading: false }));
   }
   handleSearch = searchCriteria => {
-    // console.log('hi', search);
     let filterKeys = Object.keys(searchCriteria);
     let URLQuery = filterKeys
       .reduce((query, key) => {
