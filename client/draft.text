@@ -38,10 +38,10 @@ createData();
     "Price":234
     }]
 [{
-  "link":"https://www.oba.com",
+  "link":"https://www.ojua.com",
    "market_date": "kjhg",
-    "location_country":"Austria",
-    "location_city":"Vienna",
+    "location_country":"Romania",
+    "location_city":"Bucharest",
     "location_address ":"kazernestraat",
     "location_coordinates_lat":9,
     "location_coordinates_lng":8,
@@ -55,9 +55,15 @@ createData();
     "sold" :1
 }]
 
-
+ select location_country, location_city,link,price_value from houses where price_value = 27686
         // let validReport =
     //   num === 1
     //     ? `you inserted ${num} house successfully`
     //     : `you inserted ${num} houses successfully`;
     // console.log(report, numberOfValidHouses);
+
+
+
+
+
+

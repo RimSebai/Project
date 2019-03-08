@@ -19,3 +19,6 @@ img {
 input {
   width: 70px;
 }
+.not-possible {
+  background-color: red;
+}

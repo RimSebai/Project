@@ -3,8 +3,28 @@ const apiRouter = express.Router();
 const connection = require('./db');
 const validation = require('./validation');
 const report = require('./report');
+const sql = require('./sql');
+const queryVal = require('./queryValidation');
+// let selectionData = {};
+apiRouter.route('/houses/filter').get((req, res) => {
+  let sql =
+    'select DISTINCT location_country , size_rooms,location_city from houses group by location_city';
+  connection.query(sql, function(error, results) {
+    if (error) {
+      throw error;
+    } else {
+      let countries = results.map(result => result.location_country);
+      let cities = results.map(result => result.location_city);
+      let rooms = [...new Set(results.map(result => result.size_rooms))];
+      // selectionData = { countries, cities, rooms };
+      res.json({ countries, cities, rooms });
+    }
+  });
+});
 
 apiRouter.route('/houses').get((req, res) => {
+  // console.log(req.query, selectionData);
+  queryVal.queryValidation(req.query);
   let sql = 'select * from houses';
   connection.query(sql, function(error, result) {
     if (error) {
@@ -15,23 +35,6 @@ apiRouter.route('/houses').get((req, res) => {
   });
 });
 apiRouter.route('/contribution').post((req, res) => {
-  let sql = `replace into houses (link,
-    market_date,  
-    location_country,
-    location_city,
-    location_address,
-    location_coordinates_lat,
-    location_coordinates_lng,
-    size_living_area,
-    size_rooms, 
-    price_value,
-    price_currency, 
-    description,
-    title,
-    images,
-    sold
-    )values(?)`;
-
   if (!Array.isArray(req.body)) {
     res.status(400).send;
   } else {
@@ -39,17 +42,7 @@ apiRouter.route('/contribution').post((req, res) => {
     let finalReport = report.createReport(valid.invalidDataMessages, req.body);
     let numberOfValidHouses = report.creatNumberOfValidHouses(valid.validData);
     res.json({ finalReport, numberOfValidHouses });
-
-    //____Inserting houses and adding date______
-
-    valid.validData.forEach(house => {
-      house.length === 14 &&
-        (house.splice(1, 0, Date.now()),
-        connection.query(sql, [house], function(err, result, field) {
-          if (err) throw err;
-        }));
-    });
-    //____End Inserting houses and adding date______
+    sql.addHouses(valid.validData);
   }
 });
 apiRouter

@@ -4,6 +4,16 @@ export default class AppService {
       this.checkStatusCode(response)
     );
   }
+  static getHousesWithQuery(query) {
+    return fetch(`http://localhost:3001/api/houses?${query}`).then(response =>
+      this.checkStatusCode(response)
+    );
+  }
+  static getCountries() {
+    return fetch('http://localhost:3001/api/houses/filter').then(response =>
+      this.checkStatusCode(response)
+    );
+  }
   static getHouseDetails(id) {
     return fetch(`http://localhost:3001/api/houses/${id}`).then(response =>
       this.checkStatusCode(response)
