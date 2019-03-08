@@ -12,12 +12,23 @@ class HousesList extends React.Component {
   componentDidMount() {
     service.getHouses().then(res => this.setState({ houses: res, loading: false }));
   }
+  handleSearch = searchCriteria => {
+    // console.log('hi', search);
+    let filterKeys = Object.keys(searchCriteria);
+    let URLQuery = filterKeys
+      .reduce((query, key) => {
+        searchCriteria[key] !== '' && query.push(`${key}=${encodeURI(searchCriteria[key])}`);
+        return query;
+      }, [])
+      .join('&');
+    service.getHousesWithQuery(URLQuery).then(res => {});
+  };
   render() {
     return this.state.loading ? (
       <Loading />
     ) : (
       <div>
-        <Filter houses={this.state.houses} />
+        <Filter houses={this.state.houses} onSearch={this.handleSearch} />
         <h1>Houses List</h1>
         {this.state.houses.length ? (
           this.state.houses.map(house => (

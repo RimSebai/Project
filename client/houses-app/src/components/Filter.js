@@ -14,15 +14,15 @@ class Filter extends React.Component {
       price_max: 1000000,
       rooms: 1,
       order: 'location_country_asc',
-      page: 1
-    }
+      page: 1,
+    },
   };
   componentDidMount() {
     service.getCountries().then(res => {
       this.setState({
         countries: res.countries,
         cities: res.cities,
-        NumberOfRooms: res.rooms
+        NumberOfRooms: res.rooms,
       });
     });
   }
@@ -32,38 +32,29 @@ class Filter extends React.Component {
       ...this.state,
       searchCriteria: {
         ...this.state.searchCriteria,
-        [name]: value
-      }
+        [name]: value,
+      },
     });
   };
   handleSubmit = e => {
-    let filterKeys = Object.keys(this.state.searchCriteria);
-    let URLQuery = filterKeys
-      .reduce((query, key) => {
-        this.state.searchCriteria[key] !== '' &&
-          query.push(`${key}=${encodeURI(this.state.searchCriteria[key])}`);
-        return query;
-      }, [])
-      .join('&');
-    service.getHousesWithQuery(URLQuery).then(res => {});
+    e.preventDefault();
+    this.props.onSearch(this.state.searchCriteria);
   };
 
   render() {
     const minPrice = [50000, 75000, 100000, 125000, 150000, 175000, 200000];
     const maxPrice = [50000, 75000, 100000, 125000, 150000, 175000, 200000];
     const orders = ['location_country_dsc', 'price_asc', 'price_dsc'];
+    const { price_min, price_max, city, country, order, rooms } = this.state.searchCriteria;
     let style = {
-      backgroundColor:
-        this.state.searchCriteria.price_min > this.state.searchCriteria.price_max
-          ? 'orange'
-          : 'white'
+      backgroundColor: price_min > price_max ? 'orange' : 'white',
     };
     return (
       <form className="filter-form" onSubmit={this.handleSubmit}>
         <br />
         <label>Country</label>
         <select onChange={this.handleChange} name="country">
-          <option values={this.state.searchCriteria.country} />
+          <option values={country} />
           {this.state.countries.map((country, key) => (
             <option key={key} values={country}>
               {country}
@@ -73,7 +64,7 @@ class Filter extends React.Component {
         <br />
         <label>City</label>
         <select onChange={this.handleChange} name="city">
-          <option values={this.state.searchCriteria.city} />
+          <option values={city} />
           {this.state.cities.map((city, key) => (
             <option key={key} values={city}>
               {city}
@@ -83,9 +74,7 @@ class Filter extends React.Component {
         <br />
         <label>Min Price</label>
         <select onChange={this.handleChange} name="price_min">
-          <option value={this.state.searchCriteria.price_min}>
-            {this.state.searchCriteria.price_min}
-          </option>
+          <option value={price_min}>{price_min}</option>
           {minPrice.map((price, key) => (
             <option key={key} values={price}>
               {price}
@@ -95,9 +84,7 @@ class Filter extends React.Component {
         <br />
         <label>Max Price</label>
         <select style={style} onChange={this.handleChange} name="price_max">
-          <option value={this.state.searchCriteria.price_max}>
-            {this.state.searchCriteria.price_max}
-          </option>
+          <option value={price_max}>{price_max}</option>
           {maxPrice.map((price, key) => (
             <option key={key} values={price}>
               {price}
@@ -107,7 +94,7 @@ class Filter extends React.Component {
         <br />
         <label>Number of rooms</label>
         <select onChange={this.handleChange} name="rooms">
-          <option value={this.state.searchCriteria.rooms}>1</option>
+          <option value={rooms}>1</option>
           {this.state.NumberOfRooms.map((room, key) => (
             <option key={key} values={room}>
               {room}
@@ -116,7 +103,7 @@ class Filter extends React.Component {
         </select>
         <label>Ordered by</label>
         <select onChange={this.handleChange} name="order">
-          <option value={this.state.searchCriteria.order}>{this.state.searchCriteria.order}</option>
+          <option value={order}>{order}</option>
           {orders.map((order, key) => (
             <option key={key} values={order}>
               {order}

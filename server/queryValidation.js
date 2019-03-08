@@ -1,5 +1,5 @@
-queryValidation = (query, selectionData) => {
-  // console.log('hon', query, selectionData);
+const queryValidation = query => {
+  console.log('hon', query);
 
   function countryValid(country) {
     if (query.location_country && countries.indexOf(query.location_country.toUpperCase()) === -1) {
