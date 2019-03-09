@@ -6,13 +6,13 @@ class Nav extends React.Component {
     return (
       <div>
         <p>
-          <NavLink to="/api/houses"> Houses List</NavLink>
+          <NavLink to="/houses"> Houses List</NavLink>
         </p>{' '}
         <p>
           {' '}
-          <NavLink to="/api/home">Home</NavLink>
+          <NavLink to="/home">Home</NavLink>
         </p>
-        <NavLink to="/api/contribution">Contribution</NavLink>
+        <NavLink to="/contribution">Contribution</NavLink>
       </div>
     );
   }

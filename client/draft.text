@@ -38,18 +38,18 @@ createData();
     "Price":234
     }]
 [{
-  "link":"https://www.ojua.com",
+  "link":"https://www.oba.com",
    "market_date": "kjhg",
-    "location_country":"Romania",
-    "location_city":"Bucharest",
+    "location_country":"Netherlands",
+    "location_city":"Amsterdam",
     "location_address ":"kazernestraat",
     "location_coordinates_lat":9,
     "location_coordinates_lng":8,
     "size_living_area":54,
-   "size_rooms":6,
-    "price_value":27686,
+   "size_rooms":1,
+    "price_value":500000,
     "price_currency":"euro",
-    "description":"hhhhhhhhhhhhhh",
+    "description":"",
     "title ":"hgfdfghjkl",
     "images":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Wien_Rathaus_hochaufl%C3%B6send.jpg/1200px-Wien_Rathaus_hochaufl%C3%B6send.jpg",
     "sold" :1

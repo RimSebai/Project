@@ -42,9 +42,9 @@ class Filter extends React.Component {
   };
 
   render() {
-    const minPrice = [50000, 75000, 100000, 125000, 150000, 175000, 200000];
-    const maxPrice = [50000, 75000, 100000, 125000, 150000, 175000, 200000];
-    const orders = ['location_country_dsc', 'price_asc', 'price_dsc'];
+    const minPrice = [0, 5000, 10000, 25000, 50000, 75000, 100000, 125000, 150000, 175000, 200000];
+    const maxPrice = [50000, 75000, 100000, 125000, 150000, 175000, 200000, 1000000];
+    const orders = ['location_country_desc', 'price_value_asc', 'price_value_desc'];
     const { price_min, price_max, city, country, order, rooms } = this.state.searchCriteria;
     let style = {
       backgroundColor: price_min > price_max ? 'orange' : 'white',
@@ -94,7 +94,7 @@ class Filter extends React.Component {
         <br />
         <label>Number of rooms</label>
         <select onChange={this.handleChange} name="rooms">
-          <option value={rooms}>1</option>
+          <option value={rooms} />
           {this.state.NumberOfRooms.map((room, key) => (
             <option key={key} values={room}>
               {room}

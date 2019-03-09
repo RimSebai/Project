@@ -1,31 +1,27 @@
 export default class AppService {
-  static getHouses() {
-    return fetch('http://localhost:3001/api/houses').then(response =>
-      this.checkStatusCode(response)
-    );
-  }
-  static getHousesWithQuery(query) {
+  static getHouses(query) {
     return fetch(`http://localhost:3001/api/houses?${query}`).then(response =>
-      this.checkStatusCode(response)
+      this.checkStatusCode(response),
     );
   }
+
   static getCountries() {
     return fetch('http://localhost:3001/api/houses/filter').then(response =>
-      this.checkStatusCode(response)
+      this.checkStatusCode(response),
     );
   }
   static getHouseDetails(id) {
     return fetch(`http://localhost:3001/api/houses/${id}`).then(response =>
-      this.checkStatusCode(response)
+      this.checkStatusCode(response),
     );
   }
   static addHouse(data) {
     return fetch('http://localhost:3001/api/contribution', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: data
+      body: data,
     }).then(response => this.checkStatusCode(response));
   }
 

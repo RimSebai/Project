@@ -10,7 +10,9 @@ class HousesList extends React.Component {
     loading: true,
   };
   componentDidMount() {
-    service.getHouses().then(res => this.setState({ houses: res, loading: false }));
+    service.getHouses().then(res => {
+      this.setState({ houses: res, loading: false });
+    });
   }
   handleSearch = searchCriteria => {
     let filterKeys = Object.keys(searchCriteria);
@@ -20,7 +22,7 @@ class HousesList extends React.Component {
         return query;
       }, [])
       .join('&');
-    service.getHousesWithQuery(URLQuery).then(res => {});
+    service.getHouses(URLQuery).then(res => this.setState({ houses: res, loading: false }));
   };
   render() {
     return this.state.loading ? (

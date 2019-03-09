@@ -23,15 +23,19 @@ apiRouter.route('/houses/filter').get((req, res) => {
 });
 
 apiRouter.route('/houses').get((req, res) => {
-  queryVal.queryValidation(req.query);
-  const getHousesSql = 'select * from houses';
-  connection.query(getHousesSql, (error, result) => {
-    if (error) {
-      throw error;
-    } else {
-      res.json(result);
-    }
-  });
+  let validRequest = queryVal.queryValidation(req.query);
+  if (validRequest[0]) {
+    let result = sql.createSearchSql(validRequest[1]);
+    connection.query(result.searchSql, result.params, (error, result) => {
+      if (error) {
+        throw error;
+      } else {
+        res.json(result);
+      }
+    });
+  } else {
+    res.status(400).json(validRequest[1]);
+  }
 });
 apiRouter.route('/contribution').post((req, res) => {
   if (!Array.isArray(req.body)) {
