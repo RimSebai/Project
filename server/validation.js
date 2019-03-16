@@ -54,7 +54,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       }
       if (!house.size_living_area) {
         validHouse.push(0);
-      } else if (typeof house.size_living_area === 'number') {
+      } else if (isFinite(house.size_living_area)) {
         validHouse.push(house.size_living_area);
       } else {
         invalidHouse.push('size should be a number');
@@ -68,7 +68,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       }
       if (!house.price_value) {
         invalidHouse.push('Price is required field');
-      } else if (house.price_value <= 0 || isNaN(house.price_value)) {
+      } else if (house.price_value <= 0 || isFinite(house.price_value)) {
         invalidHouse.push(`${house.price_value} is not Valid Price`);
       } else {
         validHouse.push(house.price_value);
@@ -123,7 +123,7 @@ function validURL(myURL) {
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
       '(\\?[;&amp;a-z\\d%_.~+=-]*)?' +
       '(\\#[-a-z\\d_]*)?$',
-    'i'
+    'i',
   );
   return pattern.test(myURL);
 }

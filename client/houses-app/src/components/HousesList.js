@@ -10,10 +10,15 @@ class HousesList extends React.Component {
     loading: true,
   };
   componentDidMount() {
-    service.getHouses().then(res => {
-      this.setState({ houses: res, loading: false });
-    });
+    // service.getHouses().then(res => {
+    //   // console.log('list', res);
+    this.setState({ loading: false });
+    // });
   }
+  handleReload = res => {
+    this.setState({ houses: res });
+  };
+
   handleSearch = searchCriteria => {
     let filterKeys = Object.keys(searchCriteria);
     let URLQuery = filterKeys
@@ -22,14 +27,21 @@ class HousesList extends React.Component {
         return query;
       }, [])
       .join('&');
-    service.getHouses(URLQuery).then(res => this.setState({ houses: res, loading: false }));
+    this.props.history.push(this.props.location.pathname + '?' + URLQuery);
+    service.getSearchedHouses(URLQuery).then(res => {
+      this.setState({ houses: res, loading: false });
+    });
   };
   render() {
     return this.state.loading ? (
       <Loading />
     ) : (
       <div>
-        <Filter houses={this.state.houses} onSearch={this.handleSearch} />
+        <Filter
+          houses={this.state.houses}
+          onSearch={this.handleSearch}
+          onReload={this.handleReload}
+        />
         <h1>Houses List</h1>
         {this.state.houses.length ? (
           this.state.houses.map(house => (

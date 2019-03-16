@@ -55,6 +55,9 @@ createData();
     "sold" :1
 }]
 
+
+
+
  select location_country, location_city,link,price_value from houses where price_value = 27686
         // let validReport =
     //   num === 1

@@ -23,6 +23,7 @@ apiRouter.route('/houses/filter').get((req, res) => {
 });
 
 apiRouter.route('/houses').get((req, res) => {
+  console.log('query', req.query);
   let validRequest = queryVal.queryValidation(req.query);
   if (validRequest[0]) {
     let result = sql.createSearchSql(validRequest[1]);

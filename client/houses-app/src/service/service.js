@@ -1,10 +1,14 @@
 export default class AppService {
-  static getHouses(query) {
+  static getHouses() {
+    return fetch('http://localhost:3001/api/houses').then(response =>
+      this.checkStatusCode(response),
+    );
+  }
+  static getSearchedHouses(query) {
     return fetch(`http://localhost:3001/api/houses?${query}`).then(response =>
       this.checkStatusCode(response),
     );
   }
-
   static getCountries() {
     return fetch('http://localhost:3001/api/houses/filter').then(response =>
       this.checkStatusCode(response),

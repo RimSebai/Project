@@ -1,4 +1,6 @@
 const defaultVal = query => {
+  console.log('q2', query);
+  console.log(Number(query.rooms));
   if (!query.country) {
     query.country = '';
   }

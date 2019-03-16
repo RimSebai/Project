@@ -4,6 +4,7 @@ import service from '../service/service';
 
 class Filter extends React.Component {
   state = {
+    houses: [],
     countries: [],
     cities: [],
     NumberOfRooms: [],
@@ -25,6 +26,32 @@ class Filter extends React.Component {
         NumberOfRooms: res.rooms,
       });
     });
+
+    const params = this.props.location.search
+      .replace(/^\?/, '')
+      .split('&')
+      .filter(el => el.length)
+      .map(pair => pair.split('='))
+      .reduce((params, [name, value]) => {
+        params[name] = value;
+        return params;
+      }, {});
+    (() => {
+      this.setState(
+        {
+          ...this.state,
+          searchCriteria: {
+            ...this.setState.searchCriteria,
+            ...params,
+          },
+        },
+        () =>
+          service.getSearchedHouses(this.props.location.search.replace(/^\?/, '')).then(res => {
+            // console.log(res);
+            this.props.onReload(res);
+          }),
+      );
+    })();
   }
   handleChange = e => {
     let { name, value } = e.target;
@@ -53,7 +80,7 @@ class Filter extends React.Component {
       <form className="filter-form" onSubmit={this.handleSubmit}>
         <br />
         <label>Country</label>
-        <select onChange={this.handleChange} name="country">
+        <select onChange={this.handleChange} value={country} name="country">
           <option values={country} />
           {this.state.countries.map((country, key) => (
             <option key={key} values={country}>
@@ -63,7 +90,7 @@ class Filter extends React.Component {
         </select>
         <br />
         <label>City</label>
-        <select onChange={this.handleChange} name="city">
+        <select onChange={this.handleChange} values={city} name="city">
           <option values={city} />
           {this.state.cities.map((city, key) => (
             <option key={key} values={city}>
@@ -73,7 +100,7 @@ class Filter extends React.Component {
         </select>
         <br />
         <label>Min Price</label>
-        <select onChange={this.handleChange} name="price_min">
+        <select onChange={this.handleChange} value={price_min} name="price_min">
           <option value={price_min}>{price_min}</option>
           {minPrice.map((price, key) => (
             <option key={key} values={price}>
@@ -83,7 +110,7 @@ class Filter extends React.Component {
         </select>
         <br />
         <label>Max Price</label>
-        <select style={style} onChange={this.handleChange} name="price_max">
+        <select style={style} onChange={this.handleChange} value={price_max} name="price_max">
           <option value={price_max}>{price_max}</option>
           {maxPrice.map((price, key) => (
             <option key={key} values={price}>
@@ -93,8 +120,8 @@ class Filter extends React.Component {
         </select>
         <br />
         <label>Number of rooms</label>
-        <select onChange={this.handleChange} name="rooms">
-          <option value={rooms} />
+        <select onChange={this.handleChange} value={rooms} name="rooms">
+          <option />
           {this.state.NumberOfRooms.map((room, key) => (
             <option key={key} values={room}>
               {room}
@@ -102,7 +129,7 @@ class Filter extends React.Component {
           ))}
         </select>
         <label>Ordered by</label>
-        <select onChange={this.handleChange} name="order">
+        <select onChange={this.handleChange} value={order} name="order">
           <option value={order}>{order}</option>
           {orders.map((order, key) => (
             <option key={key} values={order}>
