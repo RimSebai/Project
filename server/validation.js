@@ -1,3 +1,5 @@
+// const validation = require('validation');
+
 validator = (houses, invalidDataMessages = [], validData = []) => {
   houses.map(house => {
     let validHouse = [];
@@ -68,7 +70,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       }
       if (!house.price_value) {
         invalidHouse.push('Price is required field');
-      } else if (house.price_value <= 0 || isFinite(house.price_value)) {
+      } else if (house.price_value <= 0 || !isFinite(house.price_value)) {
         invalidHouse.push(`${house.price_value} is not Valid Price`);
       } else {
         validHouse.push(house.price_value);
@@ -76,7 +78,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       if (!house.price_currency) {
         invalidHouse.push('Currency is required field');
       } else if (
-        ['EURO', 'USD', 'JPY', 'GBP'].indexOf(String(house.price_currency).toUpperCase()) === -1
+        ['EUR', 'USD', 'JPY', 'GBP'].indexOf(String(house.price_currency).toUpperCase()) === -1
       ) {
         invalidHouse.push('Currency should be one of this (EURO,USD,JPY,GBP)');
       } else {

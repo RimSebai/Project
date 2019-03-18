@@ -54,6 +54,25 @@ createData();
     "images":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Wien_Rathaus_hochaufl%C3%B6send.jpg/1200px-Wien_Rathaus_hochaufl%C3%B6send.jpg",
     "sold" :1
 }]
+{
+     "link": "https://www.propertyunder50k.com/property-details/typical-tuscan-rustic-property-in-garfagnana-12486",
+     "market_date": "2019-03-16",
+     "location_country": "Italy",
+     "location_city": "Toscana",
+     "location_address": "Castelnuovo di Garfagnana",
+     "size_living_area": 157,
+     "size_rooms": 2,
+     "price_value": 35000,
+     "price_currency": "usd",
+     "location_coordinates_lat": 0,
+     "location_coordinates_lng": 0,
+     "title": "Typical Tuscan rustic property in Garfagnana",
+     "description": "Typical Tuscan rustic property in Garfagnana",
+     "images": "https://www.propertyunder50k.com/thumb_cache/300x225__crop__1552633342__uploaded_files%5E0%5E2%5E6%5E7%5E0267b999e437187853da59813e5ddb3a.png
+https://www.propertyunder50k.com/thumb_cache/300x225__crop__1552633342__uploaded_files%5E0%5E2%5E6%5E7%5E0267b999e437187853da59813e5ddb3a.png
+",
+     "sold": 1
+   }
 
 
 
