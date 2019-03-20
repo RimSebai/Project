@@ -1,6 +1,4 @@
 const defaultVal = query => {
-  console.log('q2', query);
-  console.log(Number(query.rooms));
   if (!query.country) {
     query.country = '';
   }
@@ -55,7 +53,7 @@ const queryValidation = query => {
 
   if (isNaN(Number(query.page))) {
     errorMessages.push('Page should be number');
-  } else if (Number(query.rooms) < 1) {
+  } else if (Number(query.page) < 1) {
     errorMessages.push('page should be more than 1');
   } else {
     query.page = Number(query.page);

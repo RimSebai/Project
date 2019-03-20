@@ -4,7 +4,6 @@ import service from '../service/service';
 
 class Filter extends React.Component {
   state = {
-    houses: [],
     countries: [],
     cities: [],
     NumberOfRooms: [],
@@ -36,22 +35,19 @@ class Filter extends React.Component {
         params[name] = value;
         return params;
       }, {});
-    (() => {
-      this.setState(
-        {
-          ...this.state,
-          searchCriteria: {
-            ...this.setState.searchCriteria,
-            ...params,
-          },
+
+    this.setState(
+      {
+        ...this.state,
+        searchCriteria: {
+          ...this.setState.searchCriteria,
+          ...params,
         },
-        () =>
-          service.getSearchedHouses(this.props.location.search.replace(/^\?/, '')).then(res => {
-            // console.log(res);
-            this.props.onReload(res);
-          }),
-      );
-    })();
+      },
+      () => {
+        this.props.onSearch(this.state.searchCriteria);
+      },
+    );
   }
   handleChange = e => {
     let { name, value } = e.target;
@@ -90,7 +86,7 @@ class Filter extends React.Component {
         </select>
         <br />
         <label>City</label>
-        <select onChange={this.handleChange} values={city} name="city">
+        <select onChange={this.handleChange} value={city} name="city">
           <option values={city} />
           {this.state.cities.map((city, key) => (
             <option key={key} values={city}>

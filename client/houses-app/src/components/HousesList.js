@@ -10,14 +10,8 @@ class HousesList extends React.Component {
     loading: true,
   };
   componentDidMount() {
-    // service.getHouses().then(res => {
-    //   // console.log('list', res);
     this.setState({ loading: false });
-    // });
   }
-  handleReload = res => {
-    this.setState({ houses: res });
-  };
 
   handleSearch = searchCriteria => {
     let filterKeys = Object.keys(searchCriteria);
@@ -37,11 +31,7 @@ class HousesList extends React.Component {
       <Loading />
     ) : (
       <div>
-        <Filter
-          houses={this.state.houses}
-          onSearch={this.handleSearch}
-          onReload={this.handleReload}
-        />
+        <Filter houses={this.state.houses} onSearch={this.handleSearch} />
         <h1>Houses List</h1>
         {this.state.houses.length ? (
           this.state.houses.map(house => (

@@ -41,7 +41,7 @@ const extractUrl = async url => {
       houseObject.link = `https://www.huislijn.nl${href}`;
 
       const src = el.querySelector('.object-image img').getAttribute('src');
-      houseObject.image = src;
+      houseObject.images = src;
 
       const priceText = el.querySelector('.object-price').innerText;
       const price = extractPrice(priceText);

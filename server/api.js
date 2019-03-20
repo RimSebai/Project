@@ -8,14 +8,13 @@ const queryVal = require('./queryValidation');
 const apiRouter = express.Router();
 
 apiRouter.route('/houses/filter').get((req, res) => {
-  const searchSql =
-    'select DISTINCT location_country , size_rooms,location_city from houses group by location_city';
+  const searchSql = 'select DISTINCT location_country , size_rooms,location_city from houses';
   connection.query(searchSql, (error, results) => {
     if (error) {
       throw error;
     } else {
-      const countries = results.map(result => result.location_country);
-      const cities = results.map(result => result.location_city);
+      const countries = [...new Set(results.map(result => result.location_country))];
+      const cities = [...new Set(results.map(result => result.location_city))];
       const rooms = [...new Set(results.map(result => result.size_rooms))];
       res.json({ countries, cities, rooms });
     }
@@ -23,7 +22,6 @@ apiRouter.route('/houses/filter').get((req, res) => {
 });
 
 apiRouter.route('/houses').get((req, res) => {
-  console.log('query', req.query);
   let validRequest = queryVal.queryValidation(req.query);
   if (validRequest[0]) {
     let result = sql.createSearchSql(validRequest[1]);

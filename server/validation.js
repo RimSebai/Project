@@ -1,5 +1,3 @@
-// const validation = require('validation');
-
 validator = (houses, invalidDataMessages = [], validData = []) => {
   houses.map(house => {
     let validHouse = [];
