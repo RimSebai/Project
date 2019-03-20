@@ -3,7 +3,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
     let validHouse = [];
     let invalidHouse = [];
     if (Object.keys(house).length === 0 || !house.constructor === Object) {
-      invalidDataMessages.push([`you inserted has to be Object and not empty`]);
+      invalidDataMessages.push([`you insert has to be Object and not empty`]);
     } else {
       if (!house.link) {
         invalidHouse.push('Link is required field');
@@ -53,7 +53,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
         }
       }
       if (!house.size_living_area) {
-        validHouse.push(0);
+        invalidHouse.push('size of living area is required');
       } else if (isFinite(house.size_living_area)) {
         validHouse.push(house.size_living_area);
       } else {
@@ -78,7 +78,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       } else if (
         ['EUR', 'USD', 'JPY', 'GBP'].indexOf(String(house.price_currency).toUpperCase()) === -1
       ) {
-        invalidHouse.push('Currency should be one of this (EURO,USD,JPY,GBP)');
+        invalidHouse.push('Currency should be one of this (EUR,USD,JPY,GBP)');
       } else {
         validHouse.push(house.price_currency);
       }

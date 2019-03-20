@@ -65,6 +65,7 @@ class Filter extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const minPrice = [0, 5000, 10000, 25000, 50000, 75000, 100000, 125000, 150000, 175000, 200000];
     const maxPrice = [50000, 75000, 100000, 125000, 150000, 175000, 200000, 1000000];
     const orders = ['location_country_desc', 'price_value_asc', 'price_value_desc'];

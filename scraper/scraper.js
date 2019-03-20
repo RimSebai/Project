@@ -23,7 +23,7 @@ const extractUrl = async url => {
     };
     const extractPrice = priceText => {
       const priceArray = priceText.split(' ');
-      const price_value = priceArray[1].replace(/\D/, '');
+      const price_value = +priceArray[1].replace(/\D/, '');
       const currency = priceArray[0];
       return { price_value, price_currency: SYMBOL_TO_CURRENCY[currency] };
     };
