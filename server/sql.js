@@ -19,11 +19,10 @@ let addHousesSql = `replace into houses (link,
   )values(?)`;
 addHouses = validData => {
   validData.forEach(house => {
-    house.length === 14 &&
-      (house.splice(1, 0, Date.now()),
+    house.length === 15 &&
       connection.query(addHousesSql, [house], function(err, result, field) {
         if (err) throw err;
-      }));
+      });
   });
 };
 //_____End of adding houses_______

@@ -13,7 +13,7 @@ let createReport = (invalidDataMessages, houses, validData) => {
 let creatNumberOfValidHouses = validData => {
   let numberOfValidHouses = [0];
   validData.forEach(el => {
-    el.length === 14 && numberOfValidHouses++;
+    el.length === 15 && numberOfValidHouses++;
   });
   return numberOfValidHouses;
 };

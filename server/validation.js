@@ -1,27 +1,57 @@
-validator = (houses, invalidDataMessages = [], validData = []) => {
-  houses.map(house => {
+const validator = require('validator');
+const moment = require('moment');
+
+validatorFun = (houses, invalidDataMessages = [], validData = []) => {
+  const houseKeys = [
+    'link',
+    'market_date',
+    'location_country',
+    'location_city',
+    'location_address',
+    'location_coordinates_lat',
+    'location_coordinates_lng',
+    'size_living_area',
+    'size_rooms',
+    'price_value',
+    'price_currency',
+    'description',
+    'title',
+    'images',
+    'sold',
+  ];
+  houses.map(home => {
+    let house = {};
     let validHouse = [];
     let invalidHouse = [];
-    if (Object.keys(house).length === 0 || !house.constructor === Object) {
+    if (Object.keys(home).length === 0 || !home.constructor === Object) {
       invalidDataMessages.push([`you insert has to be Object and not empty`]);
     } else {
+      houseKeys.map(el => (home[el] ? (house[el] = home[el]) : null));
       if (!house.link) {
         invalidHouse.push('Link is required field');
-      } else if (!validURL(house.link)) {
+      } else if (!validator.isURL(house.link)) {
         invalidHouse.push(`${house.link} is not Valid Link`);
       } else {
         validHouse.push(house.link);
       }
+      if (!house.market_date) {
+        let date = moment().format('YYYY-MM-DD');
+        validHouse.push(date);
+      } else if (houses.market_date !== moment(houses.market_date).format('YYYY-MM-DD')) {
+        invalidDataMessages.push('the date should be formated as YYYY-MM-DD');
+      } else {
+        validHouse.push(house.market_date);
+      }
       if (!house.location_country) {
         invalidHouse.push('Country Name is required field');
-      } else if (typeof house.location_country !== 'string') {
+      } else if (typeof house.location_country !== 'string' || house.location_country.length <= 2) {
         invalidHouse.push(`${house.location_country} is not Valid Country name`);
       } else {
         validHouse.push(house.location_country);
       }
       if (!house.location_city) {
         invalidHouse.push('City Name is required field');
-      } else if (typeof house.location_city !== 'string') {
+      } else if (typeof house.location_city !== 'string' || house.location_city.length <= 2) {
         invalidHouse.push(`${house.location_city} is not Valid City name`);
       } else {
         validHouse.push(house.location_city);
@@ -39,14 +69,14 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
         }
         if (typeof house.location_coordinates_lat === 'number') {
           validHouse.push(house.location_coordinates_lat);
-        } else if (typeof house.location_coordinates_lat === 'undefined') {
+        } else if (!house.location_coordinates_lat) {
           validHouse.push(0);
         } else {
           invalidHouse.push('lat should be a number');
         }
         if (typeof house.location_coordinates_lng === 'number') {
           validHouse.push(house.location_coordinates_lng);
-        } else if (typeof house.location_coordinates_lng === 'undefined') {
+        } else if (!house.location_coordinates_lng) {
           validHouse.push(0);
         } else {
           invalidHouse.push('lng should be a number');
@@ -97,7 +127,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       } else {
         let URLs = house.images.split(',');
         let imagesErrors = '';
-        URLs.map(URL => !validURL(URL) && (imagesErrors += `this ${URL}is not valid URL`));
+        URLs.map(URL => !validator.isURL(URL) && (imagesErrors += `this ${URL}is not valid URL`));
         imagesErrors ? invalidHouse.push(imagesErrors) : validHouse.push(house.images);
       }
       if (!house.sold) {
@@ -111,21 +141,7 @@ validator = (houses, invalidDataMessages = [], validData = []) => {
       validData.push(validHouse);
     }
   });
-
   return { validData, invalidDataMessages };
 };
 
-function validURL(myURL) {
-  var pattern = new RegExp(
-    '^(https?:\\/\\/)?' +
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' +
-      '((\\d{1,3}\\.){3}\\d{1,3}))' +
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
-      '(\\?[;&amp;a-z\\d%_.~+=-]*)?' +
-      '(\\#[-a-z\\d_]*)?$',
-    'i',
-  );
-  return pattern.test(myURL);
-}
-
-module.exports = { validator };
+module.exports = { validatorFun };

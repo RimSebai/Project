@@ -51,7 +51,7 @@ const extractUrl = async url => {
       const sizeInfo = el.querySelector('.object-type').innerText;
       const size = extractInfo(sizeInfo);
       houseObject.size_rooms = parseInt(size.size_rooms);
-      houseObject.size_area = Number(size.size_area);
+      houseObject.size_living_area = Number(size.size_area);
 
       const addressText = el.querySelector('.object-street').innerText;
       const addressInfo = extractAddress(addressText);
