@@ -56,10 +56,10 @@ createData();
 }]
 {
      "link": "https://www.propertyunder50k.com/property-details/typical-tuscan-rustic-property-in-garfagnana-12486",
-     "market_date": "2019-03-16",
      "location_country": "Italy",
-     "location_city": "Toscana",
-     "location_address": "Castelnuovo di Garfagnana",
+     "location_city": "Madrid",
+      "location_coordinates_lat": 44.110022,
+  "location_coordinates_lng": 10.411786 ,
      "size_living_area": 157,
      "size_rooms": 2,
      "price_value": 35000,
@@ -68,13 +68,25 @@ createData();
      "location_coordinates_lng": 0,
      "title": "Typical Tuscan rustic property in Garfagnana",
      "description": "Typical Tuscan rustic property in Garfagnana",
-     "images": "https://www.propertyunder50k.com/thumb_cache/300x225__crop__1552633342__uploaded_files%5E0%5E2%5E6%5E7%5E0267b999e437187853da59813e5ddb3a.png
+     "images": ";;;;ertyunder50k.com/thumb_cache/300x225__crop__1552633342__uploaded_files%5E0%5E2%5E6%5E7%5E0267b999e437187853da59813e5ddb3a.png
 https://www.propertyunder50k.com/thumb_cache/300x225__crop__1552633342__uploaded_files%5E0%5E2%5E6%5E7%5E0267b999e437187853da59813e5ddb3a.png
 ",
      "sold": 1
    }
 
-
+ {
+    "link": "https://www.huislijn.nl/koopwoning/nederland/utrecht/2696228/willem-van-noortstraat-131133-utrecht",
+    "images": "https://cdn-v3.huislijn.nl/objects/ca5295dd609551a4fe0cae300805ff46062199c0/901655f25c9a0ec3429e17f0f0190f5ffe2c2cd4/m.jpg,https://www.propertyunder50k.com/thumb_cache/300x225__crop__1552633342__uploaded_files%5E0%5E2%5E6%5E7%5E0267b999e437187853da59813e5ddb3a.png",
+    "price_value": 650000,
+    "price_currency": "EUR",
+    "size_rooms": 8,
+    "size_living_area": 17,
+    "location_city": "Utrecht",
+    "location_address": "Willem van Noortstra... 131133",
+    "location_country": "Netherlands",
+    "title": "Woonhuis",
+    "sold": 0
+  }
 
 
  select location_country, location_city,link,price_value from houses where price_value = 27686

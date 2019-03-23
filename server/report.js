@@ -1,7 +1,7 @@
-let createReport = (invalidDataMessages, houses, validData) => {
+let createReport = houses => {
   let invalidArray = [];
-  invalidDataMessages.forEach((el, i) => {
-    input = {};
+  houses.invalidData.forEach((el, i) => {
+    let input = {};
     input.insertedHouse = houses[i];
     input.messages = el;
     el.length > 0 && invalidArray.push(input);
@@ -11,10 +11,7 @@ let createReport = (invalidDataMessages, houses, validData) => {
 };
 
 let creatNumberOfValidHouses = validData => {
-  let numberOfValidHouses = [0];
-  validData.forEach(el => {
-    el.length === 15 && numberOfValidHouses++;
-  });
+  let numberOfValidHouses = validData.length;
   return numberOfValidHouses;
 };
 

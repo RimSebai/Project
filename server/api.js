@@ -40,8 +40,9 @@ apiRouter.route('/contribution').post((req, res) => {
   if (!Array.isArray(req.body)) {
     res.status(400).json({ error: 'data should be in array' });
   } else {
-    const valid = validation.validatorFun(req.body);
-    const finalReport = report.createReport(valid.invalidDataMessages, req.body);
+    const valid = validation.validateHouses(req.body);
+    // console.log(valid.invalidData);
+    const finalReport = report.createReport(valid);
     const numberOfValidHouses = report.creatNumberOfValidHouses(valid.validData);
     res.json({ finalReport, numberOfValidHouses });
     sql.addHouses(valid.validData);

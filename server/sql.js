@@ -17,12 +17,32 @@ let addHousesSql = `replace into houses (link,
   images,
   sold
   )values(?)`;
+
+const houseKeys = [
+  'link',
+  'market_date',
+  'location_country',
+  'location_city',
+  'location_address',
+  'location_coordinates_lat',
+  'location_coordinates_lng',
+  'size_living_area',
+  'size_rooms',
+  'price_value',
+  'price_currency',
+  'description',
+  'title',
+  'images',
+  'sold',
+];
+
 addHouses = validData => {
   validData.forEach(house => {
-    house.length === 15 &&
-      connection.query(addHousesSql, [house], function(err, result, field) {
-        if (err) throw err;
-      });
+    // console.log('sql', house);
+    const values = houseKeys.map(key => house[key] || null);
+    connection.query(addHousesSql, [values], function(err, result, field) {
+      if (err) throw err;
+    });
   });
 };
 //_____End of adding houses_______
